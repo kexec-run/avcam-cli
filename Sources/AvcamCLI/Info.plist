@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>CFBundleIdentifier</key>
+  <string>dev.privledger.avcam-cli</string>
+  <key>CFBundleName</key>
+  <string>avcam-cli</string>
+  <key>NSCameraUsageDescription</key>
+  <string>avcam-cli records camera video for Privledger AVFoundation capture testing.</string>
+  <key>NSMicrophoneUsageDescription</key>
+  <string>avcam-cli records microphone audio with camera video for Privledger AVFoundation capture testing.</string>
+  <key>NSCameraUseContinuityCameraDeviceType</key>
+  <true/>
+</dict>
+</plist>

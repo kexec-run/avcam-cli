@@ -1,0 +1,23 @@
+# Swift Package Manager
+.build/
+.swiftpm/
+Package.resolved
+
+# Xcode / macOS
+.DS_Store
+*.xcuserstate
+*.xcworkspace
+*.xcodeproj
+DerivedData/
+
+# Recording output
+*.mov
+*.mp4
+*.m4v
+*.wav
+*.caf
+*.mjpeg
+*.raw
+
+# Local logs
+*.log
