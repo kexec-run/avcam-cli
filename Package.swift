@@ -13,6 +13,7 @@ let package = Package(
     targets: [
         .executableTarget(
             name: "AvcamCLI",
+            exclude: ["Info.plist"],
             linkerSettings: [
                 .unsafeFlags([
                     "-Xlinker", "-sectcreate",

@@ -13,7 +13,7 @@ swiftc -O \
   -Xlinker __TEXT \
   -Xlinker __info_plist \
   -Xlinker Sources/AvcamCLI/Info.plist \
-  Sources/AvcamCLI/main.swift \
+  Sources/AvcamCLI/*.swift \
   -o .build/release/avcam-cli
 
 echo ".build/release/avcam-cli"
