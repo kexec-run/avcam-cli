@@ -21,3 +21,6 @@ DerivedData/
 
 # Local logs
 *.log
+
+# Local tooling
+.serena/

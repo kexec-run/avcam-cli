@@ -87,6 +87,7 @@ Record video plus Brio microphone audio using ALAC:
 .build/release/avcam-cli record --camera "Brio" --audio "Brio" --audio-codec alac --format-index 35 --fps 30 --out brio-1080p30-alac.mov
 ```
 
+If `--out` points to an existing file, `avcam-cli` deletes that file before starting the new recording. Use a fresh output path when you need to preserve a previous take.
 Supported audio codec options:
 
 ```text
