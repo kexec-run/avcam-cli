@@ -18,7 +18,7 @@ This is a working reference implementation for one tested capture path, not a un
 ## Build
 
 ```bash
-./build.sh
+swift build -c release
 ```
 
 The binary is written to:
@@ -27,11 +27,6 @@ The binary is written to:
 .build/release/avcam-cli
 ```
 
-You can also use Swift Package Manager directly:
-
-```bash
-swift build -c release
-```
 
 ## Quick Start
 

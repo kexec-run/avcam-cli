@@ -2,5 +2,5 @@
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
-./build.sh >/dev/null
+swift build -c release >/dev/null
 .build/release/avcam-cli list

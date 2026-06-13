@@ -3,7 +3,7 @@
 Build first:
 
 ```bash
-./build.sh
+swift build -c release
 ```
 
 Run from the repository root:

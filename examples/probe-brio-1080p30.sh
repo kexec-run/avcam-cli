@@ -2,7 +2,7 @@
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
-./build.sh >/dev/null
+swift build -c release >/dev/null
 .build/release/avcam-cli probe \
   --camera "${AVCAM_CAMERA:-Brio}" \
   --format-index "${AVCAM_FORMAT_INDEX:-35}" \

@@ -2,7 +2,7 @@
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
-./build.sh >/dev/null
+swift build -c release >/dev/null
 
 OUT="${1:-brio-1080p30-alac.mov}"
 
