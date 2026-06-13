@@ -60,12 +60,12 @@ The CLI uses the camera's advertised range duration rather than constructing an 
 
 ## One Session Owns Capture
 
-Recording uses a single `AVCaptureSession`. If a preview mode is added later, it should attach an `AVCaptureVideoPreviewLayer` to the same session instead of opening a second camera session.
+Recording and preview use a single `AVCaptureSession`. Preview attaches an `AVCaptureVideoPreviewLayer` to that same session instead of opening a second camera session.
 
 ```text
 AVCaptureSession
 ├── AVCaptureMovieFileOutput
-└── AVCaptureVideoPreviewLayer  future optional preview
+└── AVCaptureVideoPreviewLayer  optional preview / record --preview
 ```
 
 ## Codec Boundary

@@ -202,7 +202,7 @@ extension AvcamCLI {
         guard finish.finished else {
             throw CLIError.recordingFailed("Recording did not finish within \(trim(finalizeTimeout)) seconds after stopRecording(). AVFoundation did not deliver didFinishRecordingTo before timeout.")
         }
-        if let error = finish.error {
+        if let error = recordingFailure(from: finish.error) {
             throw CLIError.recordingFailed("Recording failed: \(error.localizedDescription)")
         }
         if verbose {
@@ -280,6 +280,19 @@ extension AvcamCLI {
 
         return delegate.finishStatus()
     }
+
+    static func recordingFailure(from error: Error?) -> Error? {
+        guard let error else {
+            return nil
+        }
+
+        let nsError = error as NSError
+        if let finished = nsError.userInfo[AVErrorRecordingSuccessfullyFinishedKey] as? Bool, finished {
+            return nil
+        }
+        return error
+    }
+
     static func shellQuote(_ value: String) -> String {
         "'\(value.replacingOccurrences(of: "'", with: "'\\''"))'"
     }

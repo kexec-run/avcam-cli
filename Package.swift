@@ -21,7 +21,8 @@ let package = Package(
                     "-Xlinker", "__info_plist",
                     "-Xlinker", "Sources/AvcamCLI/Info.plist"
                 ], .when(platforms: [.macOS])),
-                .linkedFramework("CoreAudio", .when(platforms: [.macOS]))
+                .linkedFramework("CoreAudio", .when(platforms: [.macOS])),
+                .linkedFramework("AppKit", .when(platforms: [.macOS]))
             ]
         )
     ]

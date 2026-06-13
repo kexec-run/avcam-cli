@@ -67,6 +67,14 @@ native  request the selected format's native pixel format
 nv12    request 420v / video-range NV12
 ```
 
+### Preview Camera
+
+```bash
+.build/release/avcam-cli preview --camera "Brio" --format-index 35 --fps 30
+```
+
+Preview opens an AppKit window backed by `AVCaptureVideoPreviewLayer` on the same `AVCaptureSession` setup path used by recording. Use Stop Preview, close the window, or press `Ctrl+C` to stop the session.
+
 ### Record Video
 
 Open-ended recording:
@@ -85,6 +93,12 @@ Record video plus Brio microphone audio using ALAC:
 
 ```bash
 .build/release/avcam-cli record --camera "Brio" --audio "Brio" --audio-codec alac --format-index 35 --fps 30 --out brio-1080p30-alac.mov
+```
+
+Record with a live preview window and Stop Recording button:
+
+```bash
+.build/release/avcam-cli record --camera "Brio" --audio "Brio" --audio-codec alac --format-index 35 --fps 30 --out brio-1080p30-alac.mov --preview
 ```
 
 If `--out` points to an existing file, `avcam-cli` deletes that file before starting the new recording. Use a fresh output path when you need to preserve a previous take.

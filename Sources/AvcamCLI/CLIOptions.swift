@@ -54,8 +54,8 @@ struct Options {
                 throw CLIError.usage("Unexpected argument: \(key)")
             }
 
-            if key == "--verbose" {
-                parsed["verbose"] = "true"
+            if key == "--verbose" || key == "--preview" {
+                parsed[String(key.dropFirst(2))] = "true"
                 index = args.index(after: index)
                 continue
             }
@@ -170,8 +170,25 @@ extension AvcamCLI {
             let formatIndex = try options.optionalInt("format-index")
             let exposure = try exposureConfig(options: options)
             let verbose = options.values["verbose"] == "true"
+            let preview = options.values["preview"] == "true"
             let audioCodec = audioDevice == nil ? nil : try options.string("audio-codec", default: "aac").lowercased()
-            try record(device: device, audioDevice: audioDevice, audioCodec: audioCodec, width: width, height: height, fps: fps, seconds: seconds, finalizeTimeout: finalizeTimeout, outPath: outPath, subtype: subtype, formatIndex: formatIndex, exposure: exposure, verbose: verbose)
+            if preview {
+                try recordWithPreview(device: device, audioDevice: audioDevice, audioCodec: audioCodec, width: width, height: height, fps: fps, seconds: seconds, finalizeTimeout: finalizeTimeout, outPath: outPath, subtype: subtype, formatIndex: formatIndex, exposure: exposure, verbose: verbose)
+            } else {
+                try record(device: device, audioDevice: audioDevice, audioCodec: audioCodec, width: width, height: height, fps: fps, seconds: seconds, finalizeTimeout: finalizeTimeout, outPath: outPath, subtype: subtype, formatIndex: formatIndex, exposure: exposure, verbose: verbose)
+            }
+        case "preview":
+            try ensureCameraAccess()
+            let options = try Options(args.dropFirst())
+            let device = try selectDevice(matching: try options.string("camera"))
+            let width = try options.int("width", default: 1920)
+            let height = try options.int("height", default: 1080)
+            let fps = try options.double("fps", default: 30)
+            let subtype = options.values["subtype"]
+            let formatIndex = try options.optionalInt("format-index")
+            let exposure = try exposureConfig(options: options)
+            let verbose = options.values["verbose"] == "true"
+            try preview(device: device, width: width, height: height, fps: fps, subtype: subtype, formatIndex: formatIndex, exposure: exposure, verbose: verbose)
         case "probe":
             try ensureCameraAccess()
             let options = try Options(args.dropFirst())
@@ -201,6 +218,8 @@ extension AvcamCLI {
       avcam-cli record --camera "Brio" --audio "Brio" --audio-codec alac --format-index 35 --fps 30 --seconds 10 --out brio-1080p30-alac.mov
       avcam-cli record --camera "Brio" --audio "Brio" --audio-codec aac --format-index 35 --fps 30 --seconds 10 --out brio-1080p30-aac.mov
       avcam-cli record --camera "Brio" --audio "Brio" --audio-codec pcm --format-index 35 --fps 30 --seconds 10 --out brio-1080p30-pcm.mov
+      avcam-cli record --camera "Brio" --audio "Brio" --audio-codec alac --format-index 35 --fps 30 --out brio-1080p30-alac.mov --preview
+      avcam-cli preview --camera "Brio" --format-index 35 --fps 30
       avcam-cli record --camera "Brio" --format-index 35 --fps 30 --seconds 10 --out brio-1080p30.mov --verbose
       avcam-cli record --camera "Brio" --format-index 35 --fps 30 --seconds 10 --finalize-timeout 10 --out brio-1080p30.mov
       avcam-cli probe --camera "Brio" --width 1920 --height 1080 --fps 30 --seconds 10

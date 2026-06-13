@@ -40,11 +40,13 @@ Use the printed format table to choose a format index. For example, on the teste
 ```bash
 .build/release/avcam-cli probe --camera "Brio" --format-index 35 --fps 30 --seconds 10 --output-mode native
 .build/release/avcam-cli record --camera "Brio" --audio "Brio" --audio-codec alac --format-index 35 --fps 30 --out brio-1080p30-alac.mov
+.build/release/avcam-cli record --camera "Brio" --audio "Brio" --audio-codec alac --format-index 35 --fps 30 --out brio-1080p30-alac.mov --preview
+.build/release/avcam-cli preview --camera "Brio" --format-index 35 --fps 30
 ```
 
 If `--out` points to an existing file, `avcam-cli` deletes that file before starting the new recording. Use a fresh output path when you need to preserve a previous take.
 
-Stop an open-ended recording with `Ctrl+C`. The tool catches `SIGINT`, asks `AVCaptureMovieFileOutput` to stop recording, and waits for the file-finalization callback.
+Stop an open-ended headless recording with `Ctrl+C`. With `record --preview`, use the preview window's Stop Recording button, close the window, or press `Ctrl+C`; the tool still asks `AVCaptureMovieFileOutput` to stop recording and waits for the file-finalization callback.
 
 ## Documentation
 
@@ -63,4 +65,4 @@ examples/record-brio-1080p30-alac.sh
 
 ## Status
 
-This is a practical debug recorder. The stable path is headless recording through `AVCaptureMovieFileOutput`. Probe mode intentionally prints verbose timing and format details so capture behavior can be compared with Chromium and FFmpeg.
+This is a practical debug recorder. The stable path is headless recording through `AVCaptureMovieFileOutput`; optional preview modes attach an `AVCaptureVideoPreviewLayer` to the same session. Probe mode intentionally prints verbose timing and format details so capture behavior can be compared with Chromium and FFmpeg.
